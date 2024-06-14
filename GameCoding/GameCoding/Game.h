@@ -45,7 +45,7 @@ private:
 	ComPtr<ID3D11RenderTargetView> _renderTargetView;
 	D3D11_VIEWPORT _viewport = { 0 }; // 화면을 묘사하는 구조체
 
-	float _clearColor[4] = { 0.f, 0.f, 0.f, 0.f };
+	float _clearColor[4] = { 0.3f, 0.5f, 0.6f, 0.2f };
 
 private:
 	// Geometry

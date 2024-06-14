@@ -151,10 +151,10 @@ void Game::CreateGeometry()
 		_vertices[0].color = Color(1.f, 0.f, 0.f, 1.f);
 
 		_vertices[1].position = Vec3(0.f, 0.5f, 0.f);
-		_vertices[1].color = Color(1.f, 0.f, 0.f, 1.f);
+		_vertices[1].color = Color(0.f, 1.f, 0.f, 1.f);
 		
 		_vertices[2].position = Vec3(0.5f, -0.5f, 0.f);
-		_vertices[2].color = Color(1.f, 0.f, 0.f, 1.f);
+		_vertices[2].color = Color(0.f, 0.f, 1.f, 1.f);
 	}
 
 	// VertexBuffer
