@@ -9,6 +9,7 @@
 #include <list>
 #include <map>
 #include <unordered_map>
+#include <string>
 using namespace std;
 
 // WIN
@@ -17,7 +18,7 @@ using namespace std;
 
 // DX
 #include <d3d11.h>
-#include <d3dcommon.h>
+#include <d3dcompiler.h>
 #include <wrl.h>
 #include <DirectXMath.h>
 

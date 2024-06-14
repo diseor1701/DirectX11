@@ -22,6 +22,9 @@
     <Filter Include="소스 파일\01. Main">
       <UniqueIdentifier>{f379eb05-e638-4b9e-9340-92f7850b3e8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\98. Shaders">
+      <UniqueIdentifier>{880b5fe3-ac48-452e-bc94-5776f94e1eee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameCoding.h">
@@ -75,5 +78,10 @@
     <ClCompile Include="Game.cpp">
       <Filter>소스 파일\01. Main</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Default.hlsl">
+      <Filter>소스 파일\98. Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
