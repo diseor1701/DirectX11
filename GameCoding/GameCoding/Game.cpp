@@ -22,11 +22,29 @@ void Game::Init(HWND hwnd)
 	CreateGeometry();
 	CreateVS();
 	CreateInputLayout();
+
+	CreateRasterizerState();
+	CraeteSamplerState();
+	CreateBlendState();
+
 	CreatePS();
+
+
+	CreateSRV();
+	CreateConstantBuffer();
 }
 
 void Game::Update()
 {
+	//_transformData.offset.x += 0.001f;
+	//_transformData.offset.y += 0.001f;
+
+	D3D11_MAPPED_SUBRESOURCE subResource;
+	ZeroMemory(&subResource, sizeof(subResource));
+
+	_deviceContext->Map(_constantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+	::memcpy(subResource.pData, &_transformData, sizeof(_transformData));
+	_deviceContext->Unmap(_constantBuffer.Get(), 0);
 }
 
 void Game::Render()
@@ -40,19 +58,28 @@ void Game::Render()
 
 		// IA
 		_deviceContext->IASetVertexBuffers(0, 1, _vertexBuffer.GetAddressOf(), &stride, &offset);
+		_deviceContext->IASetIndexBuffer(_indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 		_deviceContext->IASetInputLayout(_inputLayout.Get());
 		_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		
 		// VS
 		_deviceContext->VSSetShader(_vertexShader.Get(), nullptr, 0);
+		_deviceContext->VSSetConstantBuffers(0, 1, _constantBuffer.GetAddressOf());
 
-		// RS
+		// RS (VS가 넘겨준 것을 대상으로 삼각형 내부에 있는 모든 픽셀들을 판별하는 영역)
+		_deviceContext->RSSetState(_rasterizerState.Get());
 
 		// PS
 		_deviceContext->PSSetShader(_pixelShader.Get(), nullptr, 0);
+		_deviceContext->PSSetShaderResources(0, 1, _shaderResourceView.GetAddressOf());
+		_deviceContext->PSSetShaderResources(1, 1, _shaderResourceView2.GetAddressOf());
+		_deviceContext->PSSetSamplers(0, 1, _samplerState.GetAddressOf());
 		
 		// OM
-		_deviceContext->Draw(_vertices.size(), 0);
+		_deviceContext->OMSetBlendState(_blendState.Get(), nullptr, 0xFFFFFFFF);
+		
+		//_deviceContext->Draw(_vertices.size(), 0);
+		_deviceContext->DrawIndexed(_indices.size(), 0, 0);
 	}
 
 	RenderEnd();
@@ -60,13 +87,18 @@ void Game::Render()
 
 void Game::RenderBegin()
 {
+	// 최종결과물을 여기다가 넣어주세요
 	_deviceContext->OMSetRenderTargets(1, _renderTargetView.GetAddressOf(), nullptr);
+
 	_deviceContext->ClearRenderTargetView(_renderTargetView.Get(), _clearColor);
+
+	// 화면 크기 설정
 	_deviceContext->RSSetViewports(1, &_viewport);
 }
 
 void Game::RenderEnd()
 {
+	// 후면버퍼를 전면 버퍼로 고속복사해서 옮긴 다음에 화면에 그려주는 역할
 	HRESULT hr = _swapChain->Present(1, 0);
 	CHECK(hr);
 }
@@ -75,7 +107,6 @@ void Game::CreateDeviceAndSwapChain()
 {
 	DXGI_SWAP_CHAIN_DESC desc;
 	ZeroMemory(&desc, sizeof(desc)); // memset(&desc, 0, sizeof(desc))
-
 	{
 		desc.BufferDesc.Width = _width;
 		desc.BufferDesc.Height = _height;
@@ -145,16 +176,25 @@ void Game::CreateGeometry()
 {
 	// VertexData
 	{
-		_vertices.resize(3);
+		_vertices.resize(4);
 
+		// 1 3
+		// 0 2
 		_vertices[0].position = Vec3(-0.5f, -0.5f, 0.f);
-		_vertices[0].color = Color(1.f, 0.f, 0.f, 1.f);
+		_vertices[0].uv = Vec2(0.f, 5.f);
+		//_vertices[0].color = Color(1.f, 0.f, 0.f, 1.f);
 
-		_vertices[1].position = Vec3(0.f, 0.5f, 0.f);
-		_vertices[1].color = Color(0.f, 1.f, 0.f, 1.f);
+		_vertices[1].position = Vec3(-0.5f, 0.5f, 0.f);
+		_vertices[1].uv = Vec2(0.f, 0.f);
+		//_vertices[1].color = Color(1.f, 0.f, 0.f, 1.f);
 		
 		_vertices[2].position = Vec3(0.5f, -0.5f, 0.f);
-		_vertices[2].color = Color(0.f, 0.f, 1.f, 1.f);
+		_vertices[2].uv = Vec2(5.f, 5.f);
+		//_vertices[2].color = Color(1.f, 0.f, 0.f, 1.f);
+
+		_vertices[3].position = Vec3(0.5f, 0.5f, 0.f);
+		_vertices[3].uv = Vec2(5.f, 0.f);
+		//_vertices[3].color = Color(1.f, 0.f, 0.f, 1.f);
 	}
 
 	// VertexBuffer
@@ -171,15 +211,40 @@ void Game::CreateGeometry()
 
 
 		HRESULT hr = _device->CreateBuffer(&desc, &data, _vertexBuffer.GetAddressOf());
+		CHECK(hr);
+	}
+
+	// Index
+	{
+		_indices = { 0, 1, 2, 2, 1, 3 };
+	}
+
+	// IndexBuffer
+	// 정점이 너무 많아지면 중복현상이 일어나니까 정점은 한번만 알려주고 그 정점의 인덱스를 묶어서 삼각형을 그림
+	{
+		D3D11_BUFFER_DESC desc;
+		ZeroMemory(&desc, sizeof(desc));
+		desc.Usage = D3D11_USAGE_IMMUTABLE;
+		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+		desc.ByteWidth = (uint32)(sizeof(Vertex) * _indices.size());
+
+		D3D11_SUBRESOURCE_DATA data;
+		ZeroMemory(&data, sizeof(data));
+		data.pSysMem = _indices.data(); // &_vertices[0]
+
+
+		HRESULT hr = _device->CreateBuffer(&desc, &data, _indexBuffer.GetAddressOf());
+		CHECK(hr);
 	}
 }
 
+// 우리가 만들어준 버텍스 버퍼가 어떤 식으로 되어 있는지를 묘사하는 역할
 void Game::CreateInputLayout()
 {
 	D3D11_INPUT_ELEMENT_DESC layout[] =
 	{
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
 
 	};
 
@@ -202,6 +267,93 @@ void Game::CreatePS()
 
 	HRESULT hr = _device->CreatePixelShader(_psBlob->GetBufferPointer(),
 		_psBlob->GetBufferSize(), nullptr, _pixelShader.GetAddressOf());
+	CHECK(hr);
+}
+
+void Game::CreateRasterizerState()
+{
+	D3D11_RASTERIZER_DESC desc;
+	ZeroMemory(&desc, sizeof(desc));
+	desc.FillMode = D3D11_FILL_SOLID;
+	desc.CullMode = D3D11_CULL_BACK;
+	desc.FrontCounterClockwise = false;
+
+	HRESULT hr = _device->CreateRasterizerState(&desc, _rasterizerState.GetAddressOf());
+	CHECK(hr);
+}
+
+void Game::CraeteSamplerState()
+{
+	D3D11_SAMPLER_DESC desc;
+	ZeroMemory(&desc, sizeof(desc));
+	desc.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
+	desc.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
+	desc.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
+	desc.BorderColor[0] = 1;
+	desc.BorderColor[1] = 0;
+	desc.BorderColor[2] = 1;
+	desc.BorderColor[3] = 1;
+	desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+	desc.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR;
+	desc.MaxAnisotropy = 16;
+	desc.MaxLOD = FLT_MAX;
+	desc.MinLOD = FLT_MIN;
+	desc.MipLODBias = 0.0f;
+
+
+	HRESULT hr = _device->CreateSamplerState(&desc, _samplerState.GetAddressOf());
+	CHECK(hr);
+}
+
+void Game::CreateBlendState()
+{
+	D3D11_BLEND_DESC desc;
+	ZeroMemory(&desc, sizeof(D3D11_BLEND_DESC));
+	desc.AlphaToCoverageEnable = false;
+	desc.IndependentBlendEnable = false;
+
+	desc.RenderTarget[0].BlendEnable = true;
+	desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	HRESULT hr = _device->CreateBlendState(&desc, _blendState.GetAddressOf());
+	CHECK(hr);
+}
+
+void Game::CreateSRV()
+{
+	DirectX::TexMetadata md;
+	DirectX::ScratchImage img;
+	// PNG or JPG
+	HRESULT hr = ::LoadFromWICFile(L"Skeleton.png", WIC_FLAGS_NONE, &md, img);
+	CHECK(hr);
+
+	hr = ::CreateShaderResourceView(_device.Get(), img.GetImages(), img.GetImageCount(), md, _shaderResourceView.GetAddressOf());
+	CHECK(hr);
+
+	// 1번 슬롯
+	hr = ::LoadFromWICFile(L"Golem.png", WIC_FLAGS_NONE, &md, img);
+	CHECK(hr);
+
+	hr = ::CreateShaderResourceView(_device.Get(), img.GetImages(), img.GetImageCount(), md, _shaderResourceView2.GetAddressOf());
+	CHECK(hr);
+}
+
+void Game::CreateConstantBuffer()
+{
+	D3D11_BUFFER_DESC desc;
+	ZeroMemory(&desc, sizeof(desc));
+	desc.Usage = D3D11_USAGE_DYNAMIC; // CPU_Write + GPU_Read
+	desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	desc.ByteWidth = sizeof(TransformData);
+	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+	HRESULT hr = _device->CreateBuffer(&desc, nullptr, _constantBuffer.GetAddressOf());
 	CHECK(hr);
 }
 
