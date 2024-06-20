@@ -40,3 +40,6 @@ using namespace Microsoft::WRL;
 #endif
 
 #define CHECK(p) assert(SUCCEEDED(hr))
+
+// Engine
+#include "Graphics.h"
