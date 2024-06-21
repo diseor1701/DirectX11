@@ -1,5 +1,6 @@
 #pragma once
 
+
 class Game
 {
 public:
@@ -33,18 +34,18 @@ private:
 private:
 	HWND _hwnd;
 
-	Graphics* _graphics;
-
+	shared_ptr<Graphics> _graphics;
 
 private:
 	// Geometry (mesh)
 	vector<Vertex> _vertices;
-	ComPtr<ID3D11Buffer> _vertexBuffer = nullptr;
+	shared_ptr<VertexBuffer> _vertexBuffer;
+
+	//ComPtr<ID3D11Buffer> _vertexBuffer = nullptr;
 	vector<uint32> _indices;
-	ComPtr<ID3D11Buffer> _indexBuffer = nullptr;
-	ComPtr<ID3D11InputLayout> _inputLayout = nullptr;
-	// 인덱스 버퍼는 삼각형의 개수를 넘겨주는 그 정점의 개수를 줄 일 수있다.
-	// 메모리 쪽으로 항상 효율적으로 작업할 수 있다. (다 넘기지 않고 일부만 넘기기 가능)
+	shared_ptr<IndexBuffer> _indexBuffer;
+	// 중복되서 사용되는 정점의 개수를 줄이기 위해서 사용한다.
+	shared_ptr<InputLayout> _inputLayout;
 
 	// VS
 	ComPtr<ID3D11VertexShader> _vertexShader = nullptr;
