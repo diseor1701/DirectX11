@@ -18,7 +18,7 @@ void Game::Init(HWND hwnd)
 	_indexBuffer = make_shared<IndexBuffer>(_graphics->GetDevice());
 	_inputLayout = make_shared<InputLayout>(_graphics->GetDevice());
 
-	CreateGeometry();
+	CreateGeometry(  );
 	CreateVS();
 	CreateInputLayout();
 
