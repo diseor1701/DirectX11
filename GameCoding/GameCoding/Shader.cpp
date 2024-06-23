@@ -1,14 +1,6 @@
 #include "pch.h"
 #include "Shader.h"
 
-enum ShaderScope
-{
-	SS_None = 0,
-	SS_VertexShader = ( 1 << 0 ),
-	SS_PixelShader = ( 1 << 1 ),
-	SS_Both = SS_VertexShader || SS_PixelShader 
-};
-
 Shader::Shader(ComPtr<ID3D11Device> device) : _device(device)
 {
 }
