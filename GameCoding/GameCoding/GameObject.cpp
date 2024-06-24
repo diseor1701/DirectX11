@@ -39,6 +39,8 @@ GameObject::GameObject(ComPtr<ID3D11Device> device, ComPtr<ID3D11DeviceContext> 
 
 	_samplerState = make_shared<SamplerState>(device);
 	_samplerState->Create();
+
+
 }
 
 GameObject::~GameObject()
@@ -47,19 +49,13 @@ GameObject::~GameObject()
 
 void GameObject::Update()
 {
-	//// Scale Rotation Translation
-	//_localPosition.x += 0.001f;
+	Vec3 pos = _transform->GetPosition();
+	pos.x += 0.001f;
+	_transform->SetPosition(pos);
 
-	//Matrix matScale = Matrix::CreateScale(_localScale / 3);
-	//Matrix matRotation = Matrix::CreateRotationX(_localRotation.x);
-	//matRotation *= Matrix::CreateRotationY(_localRotation.y);
-	//matRotation *= Matrix::CreateRotationZ(_localRotation.z);
-	//Matrix matTranslation = Matrix::CreateTranslation(_localPosition);
+	_transformData.matWorld = _transform->GetWorldMatrix();
 
-	//Matrix matWorld = matScale * matRotation * matTranslation; // SRT
-	//_transformData.matWorld = matWorld;
-
-	//_constantBuffer->CopyData(_transformData);
+	_constantBuffer->CopyData(_transformData);
 }
 
 void GameObject::Render(shared_ptr<Pipeline> pipeline)
