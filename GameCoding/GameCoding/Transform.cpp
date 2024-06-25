@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Transform.h"
 
-Transform::Transform()
+Transform::Transform() : Super(ComponentType::Transform)
 {
 }
 
@@ -9,7 +9,7 @@ Transform::~Transform()
 {
 }
 
-void Transform::Init()
+void Transform::Start()
 {
 }
 
@@ -62,13 +62,6 @@ void Transform::UpdateTransform()
 	// 다시 분해
 	_matWorld.Decompose(_scale, quat, _position);
 	_rotation = ToEulerAngles(quat);
-
-	// v[x y z ?] M
-	// TransformCoord 위치
-	// TransformNormal 방향
-	_right = Vec3::TransformNormal(Vec3::Right, _matWorld);
-	_up = Vec3::TransformNormal(Vec3::Up, _matWorld);
-	_look = Vec3::TransformNormal(Vec3::Backward, _matWorld);
 
 	for (const shared_ptr<Transform>& child : _children)
 		child->UpdateTransform();
