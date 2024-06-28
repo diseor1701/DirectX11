@@ -85,6 +85,9 @@
     <Filter Include="소스 파일\00. Engine\Manager\Resource">
       <UniqueIdentifier>{897b042d-49c3-4d5d-9a22-f23a0299b8e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\00. Engine\Manager\Render">
+      <UniqueIdentifier>{d70340e7-8ab5-4725-b10e-636620b8f45f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameCoding.h">
@@ -207,6 +210,12 @@
     <ClInclude Include="Material.h">
       <Filter>소스 파일\00. Engine\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>소스 파일\00. Engine\Manager\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderHelper.h">
+      <Filter>소스 파일\00. Engine\Manager\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameCoding.rc">
@@ -323,6 +332,12 @@
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>소스 파일\00. Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>소스 파일\00. Engine\Manager\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderHelper.cpp">
+      <Filter>소스 파일\00. Engine\Manager\Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
