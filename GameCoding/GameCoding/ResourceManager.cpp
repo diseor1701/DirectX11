@@ -88,4 +88,10 @@ void ResourceManager::CreateDefaultAnimation()
 	animation->AddKeyframe(Keyframe{ Vec2{300.f,0.f },	Vec2{100.f, 100.f}, 0.1f });
 	
 	Add(animation->GetName(), animation);
+
+	// XML + JSON
+	animation->Save(L"TestAnim.xml");
+
+	shared_ptr<Animation> anim2 = make_shared<Animation>();
+	anim2->Load(L"TestAnim.xml");
 }
