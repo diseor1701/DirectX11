@@ -9,6 +9,8 @@
 #include "Game.h"
 #include "Mesh.h"
 #include "Animator.h"
+#include "Map.h"
+#include "Monster.h"
 
 SceneManager::SceneManager(shared_ptr<Graphics> graphics) : _graphics(graphics)
 {
@@ -47,14 +49,6 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 {
 	shared_ptr<Scene> scene = make_shared<Scene>();
 
-	// Map
-	{
-		shared_ptr<GameObject> map = make_shared<GameObject>(_graphics->GetDevice(), _graphics->GetDeviceContext());
-	
-		map->GetOrAddTransform();
-		map->AddComponent(make_shared<Camera>());
-		scene->AddGameObject(map);
-	}
 	// Camera
 	{
 		shared_ptr<GameObject> camera = make_shared<GameObject>(_graphics->GetDevice(), _graphics->GetDeviceContext());
@@ -98,11 +92,14 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 			auto mesh = RESOURCES->Get<Mesh>(L"Rectangle");
 			meshRenderer->SetMesh(mesh);
 		}
-		{
+		{/*
 			auto animator = make_shared<Animator>();
 			monster->AddComponent(animator);
 			auto anim = RESOURCES->Get<Animation>(L"SnakeAnim");
-			animator->SetAnimation(anim);
+			animator->SetAnimation(anim);*/
+
+			auto monsterScript = make_shared<Monster>();
+			monster->AddComponent(monsterScript);
 		}
 		scene->AddGameObject(monster);
 	}

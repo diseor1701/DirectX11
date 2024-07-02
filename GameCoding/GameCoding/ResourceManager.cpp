@@ -23,8 +23,8 @@ void ResourceManager::CreateDefaultTexture()
 {
 	{
 		auto texture = make_shared<Texture>(_device);
-		texture->SetName(L"Skeleton");
-		texture->Create(L"Skeleton.png");
+		texture->SetName(L"Player01");
+		texture->Create(L"Player01.png");
 		Add(texture->GetName(), texture);
 	}
 
@@ -71,7 +71,7 @@ void ResourceManager::CreateDefaultMaterial()
 	shared_ptr<Material> material = make_shared<Material>();
 	material->SetName(L"Default");
 	material->SetShader(Get<Shader>(L"Default"));
-	material->SetTexture(Get<Texture>(L"Skeleton"));
+	material->SetTexture(Get<Texture>(L"Player01"));
 	Add(material->GetName(), material);
 }
 
