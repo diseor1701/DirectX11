@@ -47,6 +47,14 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 {
 	shared_ptr<Scene> scene = make_shared<Scene>();
 
+	// Map
+	{
+		shared_ptr<GameObject> map = make_shared<GameObject>(_graphics->GetDevice(), _graphics->GetDeviceContext());
+	
+		map->GetOrAddTransform();
+		map->AddComponent(make_shared<Camera>());
+		scene->AddGameObject(map);
+	}
 	// Camera
 	{
 		shared_ptr<GameObject> camera = make_shared<GameObject>(_graphics->GetDevice(), _graphics->GetDeviceContext());
