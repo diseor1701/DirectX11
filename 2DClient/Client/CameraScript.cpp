@@ -13,7 +13,7 @@ void CameraScript::LateUpdate()
 	if (_target == nullptr)
 		return;
 
-	GetTransform()->SetPosition(_target->GetTransform()->GetPosition() + Vec3(0.f, 0.f, -20.f));
+	GetTransform()->SetPosition(_target->GetTransform()->GetPosition() + Vec3(0.f, 0.f, -400.f));
 
 	/*float dt = TIME->GetDeltaTime();
 

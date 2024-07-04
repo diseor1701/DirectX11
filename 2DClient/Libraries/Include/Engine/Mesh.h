@@ -10,6 +10,7 @@ public:
     Mesh();
     virtual ~Mesh();
 
+	void CreateMap(int32 sizeX, int32 sizeY);
 	void CreateQuad();
 	void CreateCube();
 	void CreateGrid(int32 sizeX, int32 sizeZ);

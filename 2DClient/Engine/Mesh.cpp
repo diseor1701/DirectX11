@@ -12,6 +12,12 @@ Mesh::~Mesh()
 
 }
 
+void Mesh::CreateMap(int32 sizeX, int32 sizeY)
+{
+	_geometry = make_shared<Geometry<VertexTextureData>>();
+	GeometryHelper::CreateMap(_geometry, sizeX, sizeY);
+	CreateBuffers();
+}
 void Mesh::CreateQuad()
 {
 	_geometry = make_shared<Geometry<VertexTextureData>>();
@@ -26,10 +32,10 @@ void Mesh::CreateCube()
 	CreateBuffers();
 }
 
-void Mesh::CreateGrid(int32 sizeX, int32 sizeZ)
+void Mesh::CreateGrid(int32 sizeX, int32 sizeY)
 {
 	_geometry = make_shared<Geometry<VertexTextureData>>();
-	GeometryHelper::CreateGrid(_geometry, sizeX, sizeZ);
+	GeometryHelper::CreateGrid(_geometry, sizeX, sizeY);
 	CreateBuffers();
 }
 

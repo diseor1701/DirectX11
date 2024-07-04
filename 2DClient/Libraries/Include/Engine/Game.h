@@ -10,7 +10,7 @@ struct GameDesc
 	float height = 256;
 	bool vsync = false;
 	bool windowed = true;
-	Color clearColor = Color(0.5f, 0.5f, 0.5f, 0.5f);
+	Color clearColor = Color(0.f, 0.f, 0.f, 0.f);
 };
 
 class Game

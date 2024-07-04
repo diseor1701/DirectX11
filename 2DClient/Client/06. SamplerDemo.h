@@ -2,6 +2,8 @@
 #include "IExecute.h"
 #include "Geometry.h"
 
+class Transform;
+
 class SamplerDemo : public IExecute
 {
 public:
@@ -21,7 +23,7 @@ public:
 	shared_ptr<GameObject> _camera;
 
 	// Player
-	shared_ptr<Texture> _playerTexture;
+	shared_ptr<Transform> _playerTransform;
 
 public:
 	ComPtr<ID3D11BlendState> m_pAlphaBlend = nullptr;

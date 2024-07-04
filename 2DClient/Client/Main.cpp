@@ -14,9 +14,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	desc.hInstance = hInstance;
 	desc.vsync = false;
 	desc.hWnd = NULL;
-	desc.width = 800;
-	desc.height = 600;
-	desc.clearColor = Color(0.5f, 0.5f, 0.5f, 0.5f);
+	desc.width = 600;
+	desc.height = 800;
+	desc.clearColor = Color(0.f, 0.f, 0.f, 0.f);
 	desc.app = make_shared<SamplerDemo>();
 
 	GAME->Run(desc);

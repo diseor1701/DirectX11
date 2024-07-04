@@ -13,6 +13,7 @@ bool PlayerController::Init()
 
 void PlayerController::Update() 
 {
+	Init();
 	MovePlayer();
 }
 

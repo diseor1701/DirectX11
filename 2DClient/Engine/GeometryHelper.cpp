@@ -2,6 +2,25 @@
 #include "GeometryHelper.h"
 #include "VertexData.h"
 
+void GeometryHelper::CreateMap(shared_ptr<Geometry<VertexTextureData>> geometry, int32 sizeX, int32 sizeY)
+{
+	vector<VertexTextureData> vtx;
+	vtx.resize(4);
+
+	vtx[0].position = Vec3(0.f, 0.f, 0.f);
+	vtx[0].uv = Vec2(0.f, 1.f);
+	vtx[1].position = Vec3(0.f, static_cast<float>(sizeY), 0.f);
+	vtx[1].uv = Vec2(0.f, 0.f);
+	vtx[2].position = Vec3(static_cast<float>(sizeX), 0.f, 0.f);
+	vtx[2].uv = Vec2(1.f, 1.f);
+	vtx[3].position = Vec3(static_cast<float>(sizeX), static_cast<float>(sizeY), 0.f);
+	vtx[3].uv = Vec2(1.f, 0.f);
+	geometry->SetVertices(vtx);
+
+	vector<uint32> idx = { 0, 1, 2, 2, 1, 3 };
+	geometry->SetIndices(idx);
+}
+
 void GeometryHelper::CreateQuad(shared_ptr<Geometry<VertexColorData>> geometry, Color color)
 {
 	vector<VertexColorData> vtx;
