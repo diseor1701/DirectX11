@@ -19,6 +19,8 @@ WPARAM Game::Run(GameDesc& desc)
 	INPUT->Init(_desc.hWnd);
 	
 	_desc.app->Init();
+	
+	SCENE->Update();
 
 	MSG msg = { 0 };
 
@@ -94,10 +96,13 @@ LRESULT CALLBACK Game::WndProc(HWND handle, UINT message, WPARAM wParam, LPARAM 
 
 void Game::Update()
 {
+	SCENE->Update();
+
 	TIME->Update();
 	INPUT->Update();
 
 	GRAPHICS->RenderBegin();
+
 
 	_desc.app->Update();
 	_desc.app->Render();

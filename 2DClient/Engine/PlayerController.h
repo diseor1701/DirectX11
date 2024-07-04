@@ -1,7 +1,7 @@
 #pragma once
 #include "CreatureController.h"
 
-class PlayerController : CreatureController
+class PlayerController : public CreatureController
 {
 	using Super = CreatureController;
 public:

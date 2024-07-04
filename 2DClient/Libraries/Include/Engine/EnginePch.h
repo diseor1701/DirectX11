@@ -53,6 +53,7 @@ using namespace Microsoft::WRL;
 #include "InputManager.h"
 #include "TimeManager.h"
 #include "ResourceManager.h"
+#include "SceneManager.h"
 
 #define CHECK(p)	assert(SUCCEEDED(p))
 #define GAME		GET_SINGLE(Game)		
@@ -63,6 +64,8 @@ using namespace Microsoft::WRL;
 #define TIME		GET_SINGLE(TimeManager)
 #define DT			TIME->GetDeltaTime()
 #define RESOURCES	GET_SINGLE(ResourceManager)
+#define SCENE		GET_SINGLE(SceneManager)
+#define CUR_SCENE	SCENE->GetCurrentScene()
 
 // Engine
 #include "VertexData.h"
@@ -75,4 +78,4 @@ using namespace Microsoft::WRL;
 #include "GameObject.h"
 #include "Transform.h"
 #include "Texture.h"
-//#include "Mesh.h"
+#include "Mesh.h"

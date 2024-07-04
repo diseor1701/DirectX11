@@ -28,8 +28,8 @@ void MeshRenderer::Update()
 	_shader->GetSRV("Texture0")->SetResource(_texture->GetComPtr().Get());
 	
 	// TEMP
-	Vec3 lightDir = {0.f, 0.f, 1.f};
-	_shader->GetVector("LightDir")->SetFloatVector((float*)&lightDir);
+	/*Vec3 lightDir = {0.f, 0.f, 1.f};
+	_shader->GetVector("LightDir")->SetFloatVector((float*)&lightDir);*/
 
 	uint32 stride = _mesh->GetVertexBuffer()->GetStride();
 	uint32 offset = _mesh->GetVertexBuffer()->GetOffset();

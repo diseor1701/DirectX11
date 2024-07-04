@@ -9,23 +9,21 @@ public:
 	void Update() override;
 	void Render() override;
 
+	HRESULT SetAlphaBlendState();
+
 	shared_ptr<Shader> _shader;
 
+	// map
+	shared_ptr<GameObject> _map;	
 	// Object
-	shared_ptr<Geometry<VertexTextureData>> _geometry;
-	shared_ptr<VertexBuffer> _vertexBuffer;
-	shared_ptr<IndexBuffer> _indexBuffer;
-	Matrix _world = Matrix::Identity;
-
+	shared_ptr<GameObject> _player;
 	// Camera
 	shared_ptr<GameObject> _camera;
 
-	shared_ptr<Texture> _texture;
-
 	// Player
-	shared_ptr<GameObject> _player;
-
 	shared_ptr<Texture> _playerTexture;
 
+public:
+	ComPtr<ID3D11BlendState> m_pAlphaBlend = nullptr;
 };
 

@@ -17,6 +17,7 @@ public:
 	void SetTexture(shared_ptr<Texture> texture) { _texture = texture; }
 	void SetShader(shared_ptr<Shader> shader) { _shader = shader; }
 
+
 private:
 	shared_ptr<Mesh> _mesh;
 	shared_ptr<Texture> _texture;

@@ -63,9 +63,6 @@
     <ClInclude Include="TimeManager.h">
       <Filter>02. Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics.h">
-      <Filter>02. Managers</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>02. Managers</Filter>
     </ClInclude>
@@ -135,6 +132,18 @@
     <ClInclude Include="CreatureController.h">
       <Filter>05. Controllers</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>02. Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>02. Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>04. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>02. Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -153,9 +162,6 @@
       <Filter>02. Managers</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
-      <Filter>02. Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Graphics.cpp">
       <Filter>02. Managers</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -226,6 +232,18 @@
     </ClCompile>
     <ClCompile Include="CreatureController.cpp">
       <Filter>05. Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>02. Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>02. Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>04. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>02. Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
