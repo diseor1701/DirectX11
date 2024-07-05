@@ -5,6 +5,7 @@
 class Shader;
 class Texture;
 class Mesh;
+class Animation;
 
 class ResourceManager
 {
@@ -26,6 +27,8 @@ public:
 
 private:
 	void CreateDefaultMesh();
+	void CreateDefaultTexture();
+	void CreateDefaultAnimation();
 
 private:
 	wstring _resourcePath;
@@ -87,6 +90,8 @@ ResourceType ResourceManager::GetResourceType()
 		return ResourceType::Texture;
 	if (std::is_same_v<T, Mesh>)
 		return ResourceType::Mesh;
+	if (std::is_same_v<T, Animation>)
+		return ResourceType::Animation;
 
 	assert(false);
 	return ResourceType::None;

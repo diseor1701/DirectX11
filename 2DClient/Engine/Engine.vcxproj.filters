@@ -144,6 +144,15 @@
     <ClInclude Include="Graphics.h">
       <Filter>02. Managers</Filter>
     </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>04. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>00. Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>02. Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -243,6 +252,15 @@
       <Filter>04. Component</Filter>
     </ClCompile>
     <ClCompile Include="Graphics.cpp">
+      <Filter>02. Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>04. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>00. Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
       <Filter>02. Managers</Filter>
     </ClCompile>
   </ItemGroup>

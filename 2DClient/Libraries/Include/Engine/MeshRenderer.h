@@ -14,6 +14,7 @@ public:
 	virtual void Update() override;
 
 	shared_ptr<Mesh> GetMesh() { return _mesh; }
+	shared_ptr<Texture> GetTexture() { return _texture; }
 	void SetMesh(shared_ptr<Mesh> mesh) { _mesh = mesh; }
 	void SetTexture(shared_ptr<Texture> texture) { _texture = texture; }
 	void SetShader(shared_ptr<Shader> shader) { _shader = shader; }

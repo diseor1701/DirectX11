@@ -11,6 +11,11 @@ Texture::~Texture()
 
 }
 
+Texture::Texture(const Texture& texture) : Super(ResourceType::Texture)
+{
+
+}
+
 void Texture::Load(const wstring& path)
 {
 	DirectX::TexMetadata md;

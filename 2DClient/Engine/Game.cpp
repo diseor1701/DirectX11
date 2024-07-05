@@ -103,10 +103,14 @@ void Game::Update()
 
 	GRAPHICS->RenderBegin();
 
-
+	RENDER->Update();
 	_desc.app->Update();
 	_desc.app->Render();
 
 	GRAPHICS->RenderEnd();
+}
+
+void Game::Render()
+{
 }
 
