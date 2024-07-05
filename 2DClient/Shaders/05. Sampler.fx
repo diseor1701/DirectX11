@@ -16,15 +16,28 @@ struct VertexOutput
 	float2 uv : TEXCOORD;
 };
 
+cbuffer AnimationData : register(b2)
+{
+    float2 spriteOffset;
+    float2 spriteSize;
+    float2 textureSize;
+    float useAnimation;
+}
+
 VertexOutput VS(VertexInput input)
 {
 	VertexOutput output;
 	output.position = mul(input.position, World);
 	output.position = mul(output.position, View);
 	output.position = mul(output.position, Projection);
-
+	
 	output.uv = input.uv;
-
+    if (useAnimation == 1.0f)
+    {
+        output.uv *= spriteSize / textureSize;
+        output.uv += spriteOffset / textureSize;
+        output.uv = 0;
+    }
 	return output;
 }
 
@@ -54,7 +67,7 @@ SamplerState SamplerAddressBorder
 {
 	AddressU = Border;
 	AddressV = Border;
-	BorderColor = float4(1, 0, 0, 1);
+	BorderColor = float4(1, 0, 0, 0);
 };
 
 float4 PS(VertexOutput input) : SV_TARGET
@@ -66,7 +79,7 @@ float4 PS(VertexOutput input) : SV_TARGET
 		return Texture0.Sample(SamplerAddressMirror, input.uv);
 	
 	if (Address == 2)
-		return Texture0.Sample(SamplerAddressWrap, input.uv);
+        return Texture0.Sample(SamplerAddressClamp, input.uv);
 	
 	if (Address == 3)
 		return Texture0.Sample(SamplerAddressBorder, input.uv);

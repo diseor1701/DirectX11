@@ -85,10 +85,10 @@
     <FxCompile Include="..\Shaders\04. Texture.fx">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="05. Sampler.fx">
+    <FxCompile Include="..\Shaders\10. Map.fx">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="..\Shaders\10. Map.fx">
+    <FxCompile Include="..\Shaders\05. Sampler.fx">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

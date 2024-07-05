@@ -63,7 +63,7 @@ void RenderManager::RenderObjects()
 			_animationData.useAnimation = 1.f;
 			PushAnimationData(_animationData);
 
-			DC->VSSetConstantBuffers(0, 1, _animationBuffer->GetComPtr().GetAddressOf());
+			DC->VSSetConstantBuffers(2, 1, _animationBuffer->GetComPtr().GetAddressOf());
 			meshRenderer->SetTexture(animator->GetCurrentAnimation()->GetTexture());
 		}
 		else
@@ -74,7 +74,7 @@ void RenderManager::RenderObjects()
 			_animationData.useAnimation = 0.f;
 			PushAnimationData(_animationData);
 
-			DC->VSSetConstantBuffers(0, 1, _animationBuffer->GetComPtr().GetAddressOf());
+			DC->VSSetConstantBuffers(2, 1, _animationBuffer->GetComPtr().GetAddressOf());
 			meshRenderer->SetTexture(meshRenderer->GetTexture());
 		}
 	}
