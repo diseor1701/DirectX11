@@ -126,12 +126,6 @@
     <ClInclude Include="PlayerController.h">
       <Filter>05. Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="BaseController.h">
-      <Filter>05. Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="CreatureController.h">
-      <Filter>05. Controllers</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>02. Managers</Filter>
     </ClInclude>
@@ -152,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="RenderManager.h">
       <Filter>02. Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityController.h">
+      <Filter>05. Controllers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -236,12 +233,6 @@
     <ClCompile Include="PlayerController.cpp">
       <Filter>05. Controllers</Filter>
     </ClCompile>
-    <ClCompile Include="BaseController.cpp">
-      <Filter>05. Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="CreatureController.cpp">
-      <Filter>05. Controllers</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>02. Managers</Filter>
     </ClCompile>
@@ -262,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="RenderManager.cpp">
       <Filter>02. Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityController.cpp">
+      <Filter>05. Controllers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

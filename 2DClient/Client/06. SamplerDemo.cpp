@@ -4,12 +4,12 @@
 #include "Camera.h"
 #include "GameObject.h"
 #include "CameraScript.h"
-#include "PlayerController.h"
 #include "MeshRenderer.h"
 #include "Mesh.h"
 #include "Animation.h"
 #include "Animator.h"
-
+#include "PlayerController.h"
+#include "GravityController.h"
 
 HRESULT  SamplerDemo::SetAlphaBlendState()
 {
@@ -62,21 +62,13 @@ void SamplerDemo::Init()
 	RESOURCES->Init();
 	auto shader = make_shared<Shader>(L"05. Sampler.fx");
 
-	// Camera
-	_camera = make_shared<GameObject>();
-	_camera->GetOrAddTransform()->SetPosition(_playerTransform->GetPosition());
-	_camera->AddComponent(make_shared<Camera>());
-	//shared_ptr<CameraScript> cs = make_shared<CameraScript>();
-	//cs->SetTarget(_player);
-	//_camera->AddComponent(cs);
-	CUR_SCENE->Add(_camera);
 	// Map
 	_map = make_shared<GameObject>();
-	_map->GetOrAddTransform()->SetPosition(Vec3(0.f, 0.f, 0.f));
+	_map->GetOrAddTransform()->SetPosition(Vec3(-225.f, -400.f, 0.f));
 	_map->AddComponent(make_shared<MeshRenderer>());
 	_map->GetMeshRenderer()->SetShader(shader);
 	shared_ptr<Mesh> map_mesh = make_shared<Mesh>();
-	map_mesh->CreateMap(144, 256);
+	map_mesh->CreateMap(450, 800);
 	RESOURCES->Add(L"Map", map_mesh);
 	_map->GetMeshRenderer()->SetMesh(map_mesh);
 	auto map = RESOURCES->Load<Texture>(L"BG_01.png", L"..\\Resources\\Textures\\BG_01.png");
@@ -87,8 +79,8 @@ void SamplerDemo::Init()
 	// Player
 	_player = make_shared<GameObject>();
 	_playerTransform = _player->GetOrAddTransform();
-	_playerTransform->SetLocalScale(Vec3(20.2f, 14.2f, 0.f));
-	_playerTransform->SetPosition(Vec3(72.f, 100.f, -1.f));
+	_playerTransform->SetLocalScale(Vec3(30.f, 40.f, 0.f));
+	_playerTransform->SetPosition(Vec3(0.f, 0.f, 0.f));
 	_player->AddComponent(make_shared<MeshRenderer>());
 	{
 		{
@@ -110,12 +102,20 @@ void SamplerDemo::Init()
 		}
 	}
 	_player->AddComponent(make_shared<PlayerController>());
+	_player->AddComponent(make_shared<GravityController>());
+
 
 	CUR_SCENE->Add(_player);
 
+	// Camera
+	_camera = make_shared<GameObject>();
+	_camera->GetOrAddTransform()->SetPosition(_playerTransform->GetPosition());
+	_camera->AddComponent(make_shared<Camera>());
 
+	CUR_SCENE->Add(_camera);
 
 	RENDER->Init(shader);
+
 }
 
 void SamplerDemo::Update()

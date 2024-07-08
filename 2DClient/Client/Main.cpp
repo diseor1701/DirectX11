@@ -14,7 +14,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	desc.hInstance = hInstance;
 	desc.vsync = false;
 	desc.hWnd = NULL;
-	desc.width = 600;
+	desc.width = 450;
 	desc.height = 800;
 	desc.clearColor = Color(0.f, 0.f, 0.f, 0.1f);
 	desc.app = make_shared<SamplerDemo>();
