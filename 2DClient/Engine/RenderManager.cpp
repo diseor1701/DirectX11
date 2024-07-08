@@ -13,6 +13,7 @@ void RenderManager::Init(shared_ptr<Shader> shader)
 
 	_animationBuffer = make_shared<ConstantBuffer<AnimationData>>();
 	_animationBuffer->Create();
+	_animationEffectBuffer = _shader->GetConstantBuffer("AnimationBuffer");
 }
 
 void RenderManager::Update()
@@ -60,10 +61,10 @@ void RenderManager::RenderObjects()
 			_animationData.spriteOffset = keyframe.offset;
 			_animationData.spriteSize = keyframe.size;
 			_animationData.textureSize = animator->GetCurrentAnimation()->GetTextureSize();
-			_animationData.useAnimation = 1.f;
+			_animationData.useAnimation = 1.0f;
 			PushAnimationData(_animationData);
 
-			DC->VSSetConstantBuffers(2, 1, _animationBuffer->GetComPtr().GetAddressOf());
+			_animationEffectBuffer->SetConstantBuffer(_animationBuffer->GetComPtr().Get());
 			meshRenderer->SetTexture(animator->GetCurrentAnimation()->GetTexture());
 		}
 		else
@@ -74,8 +75,9 @@ void RenderManager::RenderObjects()
 			_animationData.useAnimation = 0.f;
 			PushAnimationData(_animationData);
 
-			DC->VSSetConstantBuffers(2, 1, _animationBuffer->GetComPtr().GetAddressOf());
+			_animationEffectBuffer->SetConstantBuffer(_animationBuffer->GetComPtr().Get());
 			meshRenderer->SetTexture(meshRenderer->GetTexture());
 		}
+		meshRenderer->Update();
 	}
 }

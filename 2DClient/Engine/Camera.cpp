@@ -29,5 +29,6 @@ void Camera::UpdateMatrix()
 
 	//S_MatView = GetTransform()->GetWorldMatrix().Invert();
 
-	S_MatProjection = ::XMMatrixPerspectiveFovLH(_fov, _width / _height, _near, _far);
+
+	S_MatProjection = ::XMMatrixOrthographicLH(_width, _height, 0.f, 1.f);
 }

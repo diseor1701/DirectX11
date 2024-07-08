@@ -48,9 +48,9 @@ void ResourceManager::CreateDefaultAnimation()
 	animation->SetTexture(Get<Texture>(L"Bird_Red_01-Sheet"));
 	animation->SetLoop(true);
 
-	animation->AddKeyframe(Keyframe{ Vec2{0.f, 0.f}, Vec2{0.5f, 1.1f}, 0.1f });
+	animation->AddKeyframe(Keyframe{ Vec2{0.f, 0.f}, Vec2{15.f, 11.f}, 0.1f });
 	animation->AddKeyframe(Keyframe{ Vec2{16.f, 0.f}, Vec2{16.f, 11.f}, 0.1f });
-	animation->AddKeyframe(Keyframe{ Vec2{33.f, 0.f}, Vec2{17.f, 1.f}, 0.1f });
+	animation->AddKeyframe(Keyframe{ Vec2{33.f, 0.f}, Vec2{17.f, 11.f}, 0.1f });
 
 	Add(animation->GetName(), animation);
 }

@@ -16,7 +16,7 @@ struct VertexOutput
 	float2 uv : TEXCOORD;
 };
 
-cbuffer AnimationData : register(b2)
+cbuffer AnimationBuffer
 {
     float2 spriteOffset;
     float2 spriteSize;
@@ -36,7 +36,6 @@ VertexOutput VS(VertexInput input)
     {
         output.uv *= spriteSize / textureSize;
         output.uv += spriteOffset / textureSize;
-        output.uv = 0;
     }
 	return output;
 }

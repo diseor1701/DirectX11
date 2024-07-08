@@ -64,10 +64,12 @@ void SamplerDemo::Init()
 
 	// Camera
 	_camera = make_shared<GameObject>();
-	_camera->GetOrAddTransform()->SetPosition(Vec3(0.f, 0.f, -10.f));
+	_camera->GetOrAddTransform()->SetPosition(_playerTransform->GetPosition());
 	_camera->AddComponent(make_shared<Camera>());
-	shared_ptr<CameraScript> cs = make_shared<CameraScript>();
-
+	//shared_ptr<CameraScript> cs = make_shared<CameraScript>();
+	//cs->SetTarget(_player);
+	//_camera->AddComponent(cs);
+	CUR_SCENE->Add(_camera);
 	// Map
 	_map = make_shared<GameObject>();
 	_map->GetOrAddTransform()->SetPosition(Vec3(0.f, 0.f, 0.f));
@@ -109,11 +111,9 @@ void SamplerDemo::Init()
 	}
 	_player->AddComponent(make_shared<PlayerController>());
 
-	cs->SetTarget(_player);
-	_camera->AddComponent(cs);
-	CUR_SCENE->Add(_camera);
-
 	CUR_SCENE->Add(_player);
+
+
 
 	RENDER->Init(shader);
 }
@@ -121,7 +121,6 @@ void SamplerDemo::Init()
 void SamplerDemo::Update()
 {
 	_player->Update();
-	_map->Update();
 	_camera->LateUpdate();
 }
 
