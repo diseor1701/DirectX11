@@ -4,8 +4,9 @@
 #include "Transform.h"
 #include "Camera.h"
 #include "MeshRenderer.h"
-#include "PlayerController.h"
 #include "Animator.h"
+#include "PlayerController.h"
+#include "GravityController.h"
 
 GameObject::GameObject()
 {
@@ -94,6 +95,13 @@ std::shared_ptr<Component> GameObject::GetFixedComponent(ComponentType type)
 	return _components[index];
 }
 
+std::shared_ptr<MonoBehaviour> GameObject::GetFixedScript(ScriptType type)
+{
+	uint8 index = static_cast<uint8>(type);
+	assert(index < FIXED_SCRIPT_COUNT);
+	return _scripts[index];
+}
+
 std::shared_ptr<Transform> GameObject::GetTransform()
 {
 	shared_ptr<Component> component = GetFixedComponent(ComponentType::Transform);
@@ -116,6 +124,12 @@ std::shared_ptr<Animator> GameObject::GetAnimator()
 {
 	shared_ptr<Component> component = GetFixedComponent(ComponentType::Animator);
 	return static_pointer_cast<Animator>(component);
+}
+
+shared_ptr<GravityController> GameObject::GetGravityController()
+{
+	shared_ptr<MonoBehaviour> script = GetFixedScript(ScriptType::GravityController);
+	return static_pointer_cast<GravityController>(script);
 }
 
 std::shared_ptr<Transform> GameObject::GetOrAddTransform()

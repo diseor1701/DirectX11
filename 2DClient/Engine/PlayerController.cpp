@@ -1,5 +1,6 @@
 #include "pch.h"
-
+#include "GravityController.h"
+#include "TimeManager.h"
 void PlayerController::Init()
 {
 	_speed = 5.0f;
@@ -19,11 +20,20 @@ void PlayerController::MovePlayer()
 	if (INPUT->GetButton(KEY_TYPE::SPACE))
 	{
 		pos += GetTransform()->GetUp() * _speed * dt;
+
+		float fallSpeed = GetGameObject()->GetGravityController()->GetFallSpeed();
+		float offYDelta = GetGameObject()->GetGravityController()->GetOffYDelta();
+		float gravityPower = GetGameObject()->GetGravityController()->GetGravityPower();
+
+		fallSpeed -= dt * gravityPower * 5;
+		offYDelta += dt * fallSpeed;
+		GetGameObject()->GetGravityController()->SetFallSpeed(fallSpeed);
+		GetGameObject()->GetGravityController()->SetOffYDelta(offYDelta);
 	}
 
 	GetTransform()->SetPosition(pos);
-
 }
+
 
 void PlayerController::OnDead()
 {

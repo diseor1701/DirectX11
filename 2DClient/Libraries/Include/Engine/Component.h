@@ -15,11 +15,19 @@ enum class ComponentType : uint8
 	End,
 };
 
+enum class ScriptType : uint8
+{
+	PlayerController,
+	GravityController,
+
+	End,
+};
 
 
 enum
 {
-	FIXED_COMPONENT_COUNT = static_cast<uint8>(ComponentType::End) - 1
+	FIXED_COMPONENT_COUNT = static_cast<uint8>(ComponentType::End) - 1,
+	FIXED_SCRIPT_COUNT = static_cast<uint8>(ScriptType::End)
 };
 
 class Component

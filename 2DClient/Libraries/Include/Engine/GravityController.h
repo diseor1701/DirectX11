@@ -1,21 +1,24 @@
 #pragma once
-#include "PlayerController.h"
+#include "MonoBehaviour.h"
 
-class GravityController : public PlayerController
+static class GravityController : public MonoBehaviour
 {
 public:
-	virtual void Init();
-	virtual void Update();
+	void Init();
+	void Update();
 
 	float GetFallSpeed() { return _fallSpeed; }
 	void SetFallSpeed(float fallSpeed) { _fallSpeed = fallSpeed; }
 
 	float GetOffYDelta() { return _offYDelta; }
 	void SetOffYDelta(float offYDelta) { _offYDelta = offYDelta; }
+
+	float GetGravityPower() { return _gravityPower; }
+	void SetGravityPower(float gravityPower) { _gravityPower = gravityPower; }
 private:
 	float MaxSpeedPerSecond = 0.5f;
-	float _fallSpeed = 0.f;
 	float _gravityPower = 0.01f;
+	float _fallSpeed = 0.f;
 	float _offYDelta = 0.f;
 };
 
