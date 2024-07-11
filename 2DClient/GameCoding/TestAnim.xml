@@ -1,0 +1,5 @@
+<Animation Name="BirdRed_Anim" Loop="true" TexturePath="TODO">
+    <Keyframe OffsetX="0" OffsetY="0" SizeX="15" SizeY="11" Time="0.1"/>
+    <Keyframe OffsetX="16" OffsetY="0" SizeX="16" SizeY="11" Time="0.1"/>
+    <Keyframe OffsetX="33" OffsetY="0" SizeX="17" SizeY="11" Time="0.1"/>
+</Animation>
