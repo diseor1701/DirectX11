@@ -37,6 +37,20 @@ void ResourceManager::CreateDefaultTexture()
 		texture->Create(L"..\\Resources\\Textures\\Floor2.png");
 		Add(texture->GetName(), texture);
 	}
+	// Pipe1
+	{
+		auto texture = make_shared<Texture>(_device);
+		texture->SetName(L"Pipe1");
+		texture->Create(L"..\\Resources\\Textures\\Pipe_G_01.png");
+		Add(texture->GetName(), texture);
+	}
+	// Pipe2
+	{
+		auto texture = make_shared<Texture>(_device);
+		texture->SetName(L"Pipe2");
+		texture->Create(L"..\\Resources\\Textures\\Pipe_G_02.png");
+		Add(texture->GetName(), texture);
+	}
 	// Player
 	{
 		auto texture = make_shared<Texture>(_device);
@@ -62,7 +76,13 @@ void ResourceManager::CreateDefaultMesh()
 		mesh->CreateMap(900, 150);
 		Add(mesh->GetName(), mesh);
 	}
-
+	// Pipe
+	{
+		shared_ptr<Mesh> mesh = make_shared<Mesh>(_device);
+		mesh->SetName(L"Pipe");
+		mesh->CreateMap(82, 400);
+		Add(mesh->GetName(), mesh);
+	}
 	// Rectangle
 	{
 		shared_ptr<Mesh> mesh = make_shared<Mesh>(_device);
@@ -106,6 +126,22 @@ void ResourceManager::CreateDefaultMaterial()
 		material->SetName(L"Floor");
 		material->SetShader(Get<Shader>(L"Default"));
 		material->SetTexture(Get<Texture>(L"Floor"));
+		Add(material->GetName(), material);
+	}
+	// Pipe1
+	{
+		shared_ptr<Material> material = make_shared<Material>();
+		material->SetName(L"Pipe1");
+		material->SetShader(Get<Shader>(L"Default"));
+		material->SetTexture(Get<Texture>(L"Pipe1"));
+		Add(material->GetName(), material);
+	}
+	// Pipe2
+	{
+		shared_ptr<Material> material = make_shared<Material>();
+		material->SetName(L"Pipe2");
+		material->SetShader(Get<Shader>(L"Default"));
+		material->SetTexture(Get<Texture>(L"Pipe2"));
 		Add(material->GetName(), material);
 	}
 	// Player

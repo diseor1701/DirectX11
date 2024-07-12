@@ -94,10 +94,10 @@ std::shared_ptr<Scene> SceneManager::LoadTestScene()
 		}
 		scene->AddGameObject(floor1);
 	}
-
+	// Floor2
 	{
 		shared_ptr<GameObject> floor2 = make_shared<GameObject>(_graphics->GetDevice(), _graphics->GetDeviceContext());
-		floor2->GetOrAddTransform()->SetPosition(Vec3(450.f, -400.f, 0.f));
+		floor2->GetOrAddTransform()->SetPosition(Vec3(400.f, -400.f, 0.f));
 		{
 			auto meshRenderer = make_shared<MeshRenderer>(_graphics->GetDevice(), _graphics->GetDeviceContext());
 			floor2->AddComponent(meshRenderer);
@@ -112,6 +112,35 @@ std::shared_ptr<Scene> SceneManager::LoadTestScene()
 		scene->AddGameObject(floor2);
 	}
 
+	// Pipe1
+	{
+		shared_ptr<GameObject> Pipe1 = make_shared<GameObject>(_graphics->GetDevice(), _graphics->GetDeviceContext());
+		//Pipe1->GetOrAddTransform()->SetPosition(Vec3(100.f, 10.f, 0.f));
+		{
+			auto meshRenderer = make_shared<MeshRenderer>(_graphics->GetDevice(), _graphics->GetDeviceContext());
+			Pipe1->AddComponent(meshRenderer);
+			auto material = RESOURCES->Get<Material>(L"Pipe1");
+			meshRenderer->SetMaterial(material);
+			auto mesh = RESOURCES->Get<Mesh>(L"Pipe");
+			meshRenderer->SetMesh(mesh);
+		}
+		scene->AddGameObject(Pipe1);
+	}
+	// Pipe2
+	{
+		shared_ptr<GameObject> Pipe2 = make_shared<GameObject>(_graphics->GetDevice(), _graphics->GetDeviceContext());
+		//Pipe2->GetOrAddTransform()->SetPosition(Vec3(50.f, -250.f, 0.f));
+		{
+			auto meshRenderer = make_shared<MeshRenderer>(_graphics->GetDevice(), _graphics->GetDeviceContext());
+			Pipe2->AddComponent(meshRenderer);
+			auto material = RESOURCES->Get<Material>(L"Pipe2");
+			meshRenderer->SetMaterial(material);
+			auto mesh = RESOURCES->Get<Mesh>(L"Pipe");
+			meshRenderer->SetMesh(mesh);
+
+		}
+		scene->AddGameObject(Pipe2);
+	}
 
 	// Player
 	{

@@ -37,7 +37,7 @@ void PlayerController::MovePlayer()
 	}
 	else 
 	{
-		rotation -= Vec3(0.f, 0.f, 0.0035f);
+		rotation -= Vec3(0.f, 0.f, 0.006f);
 
 		if (rotation.z < -1.f)
 			rotation.z = -1.f;

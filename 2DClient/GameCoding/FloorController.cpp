@@ -16,7 +16,7 @@ void FloorController::Update()
 	pos -= GetTransform()->GetRight() * 100 * _speed * dt;
 
 	if (pos.x < -1300.f)
-		pos.x = 450.f;
+		pos.x = 400.f;
 
 	GetTransform()->SetPosition(pos);
 }
